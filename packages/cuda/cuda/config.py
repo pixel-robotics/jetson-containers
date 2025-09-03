@@ -136,7 +136,7 @@ def pip_cache(version, requires=None):
     https://github.com/dusty-nv/jetson-containers/blob/master/docs/build.md#pip-server
     """
     short_version = f"cu{version.replace('.', '')}"
-    index_host = os.environ.get('INDEX_HOST', 'jetson-ai-lab.dev')
+    index_host = os.environ.get('INDEX_HOST', 'jetson-ai-lab.io')
 
     pip_path = (
         f"jp{JETPACK_VERSION.major}/{short_version}" if IS_TEGRA
@@ -157,7 +157,7 @@ def pip_cache(version, requires=None):
     pip_cache['build_args'] = {
         'TAR_INDEX_URL': os.environ.get('LOCAL_TAR_INDEX_URL', f"https://apt.{index_host}") + f"/{apt_path}",
         'FALLBACK_TAR_INDEX_URL': f"https://apt.{index_host}/{apt_path}",
-        'MULTIARCH_URL': f"https://apt.{index_host}/multiarch",
+        'MULTIARCH_URL': f"https://s3.eu-central-1.amazonaws.com/logivationsbucket.s3.awsamazon.com/docker_dependencies",
         'DOWNLOADS_URL': f"https://apt.{index_host}/assets",
         'PIP_INDEX_REPO': os.environ.get('LOCAL_PIP_INDEX_URL', os.environ.get('LOCAL_PIP_INDEX_REPO', f"https://pypi.{index_host}") + f"/{pip_path}"),
         'PIP_TRUSTED_HOSTS': f"{os.environ.get('PIP_UPLOAD_HOST', index_host)}",
